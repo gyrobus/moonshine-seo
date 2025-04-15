@@ -7,11 +7,11 @@ namespace Gyrobus\MoonshineSeo\Resources;
 use Gyrobus\MoonshineCropper\Fields\Cropper;
 use Illuminate\Database\Eloquent\Model;
 use Gyrobus\MoonshineSeo\Models\Seo;
+use MoonShine\Contracts\UI\ComponentContract;
+use MoonShine\Contracts\UI\FieldContract;
 use MoonShine\Laravel\Resources\ModelResource;
 use MoonShine\UI\Components\Layout\Box;
 use MoonShine\UI\Fields\ID;
-use MoonShine\Contracts\UI\FieldContract;
-use MoonShine\Contracts\UI\ComponentContract;
 use MoonShine\UI\Fields\Text;
 
 /**

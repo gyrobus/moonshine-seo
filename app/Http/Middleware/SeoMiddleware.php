@@ -3,8 +3,8 @@
 namespace Gyrobus\MoonshineSeo\Middleware;
 
 use Closure;
-use Gyrobus\MoonshineSeo\Models\Seo;
 use Illuminate\Http\Request;
+use Gyrobus\MoonshineSeo\Models\Seo;
 
 class SeoMiddleware
 {
