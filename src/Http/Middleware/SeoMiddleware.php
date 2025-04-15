@@ -1,6 +1,6 @@
 <?php
 
-namespace Gyrobus\MoonshineSeo\Middleware;
+namespace Gyrobus\MoonshineSeo\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;

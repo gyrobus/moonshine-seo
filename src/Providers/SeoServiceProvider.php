@@ -6,7 +6,7 @@ namespace Gyrobus\MoonshineSeo\Providers;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
-use Gyrobus\MoonshineSeo\Middleware\SeoMiddleware;
+use Gyrobus\MoonshineSeo\Http\Middleware\SeoMiddleware;
 
 final class SeoServiceProvider extends ServiceProvider
 {
