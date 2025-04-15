@@ -1,0 +1,40 @@
+{
+  "name": "gyrobus/moonshine-seo",
+  "description": "Control SEO resource for moonshine v3",
+  "keywords": ["SEO", "moonshine"],
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Pavel Andante",
+      "email": "pavel-andante@yandex.com"
+    }
+  ],
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/gyrobus/moonshine-cropper"
+    }
+  ],
+  "require": {
+    "php": ">=8.2",
+    "moonshine/moonshine": ">3.0",
+    "honeystone/laravel-seo": "^2.0",
+    "gyrobus/moonshine-cropper": "dev-master"
+  },
+  "autoload": {
+    "psr-4": {
+      "Gyrobus\\MoonshineSeo\\": "src/"
+    }
+  },
+  "conflict": {
+    "moonshine/moonshine": "<3.0"
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Gyrobus\\MoonshineSeo\\Providers\\SeoServiceProvider"
+      ]
+    }
+  }
+}
