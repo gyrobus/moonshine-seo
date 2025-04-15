@@ -13,7 +13,7 @@ final class SeoServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->publishes([
-            __DIR__ . '/../../database/migrations' => database_path('migrations')
+            __DIR__ . '/../database/migrations' => database_path('migrations')
         ], 'migrations');
 
         $this->app->make('router')
