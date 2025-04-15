@@ -6,6 +6,7 @@ namespace Gyrobus\MoonshineSeo\Providers;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
+use Gyrobus\MoonshineSeo\Middleware\SeoMiddleware;
 
 final class SeoServiceProvider extends ServiceProvider
 {
@@ -15,11 +16,7 @@ final class SeoServiceProvider extends ServiceProvider
             __DIR__ . '/../../database/migrations' => database_path('migrations')
         ], 'migrations');
 
-        $this->app['router']->middleware('SeoMiddleware', \Gyrobus\MoonshineSeo\Middleware\SeoMiddleware::class);
-
-        Route::middlewareGroup('web', array_merge(
-            $this->app['router']->getMiddlewareDefaults()['web'],
-            ['SeoMiddleware']
-        ));
+        $this->app->make('router')
+            ->pushMiddlewareToGroup('web', SeoMiddleware::class);
     }
 }
