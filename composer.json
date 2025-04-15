@@ -1,7 +1,7 @@
 {
   "name": "gyrobus/moonshine-seo",
   "description": "Control SEO resource for moonshine v3",
-  "keywords": ["SEO", "moonshine"],
+  "keywords": ["laravel", "SEO", "moonshine"],
   "type": "library",
   "license": "MIT",
   "authors": [
@@ -10,6 +10,10 @@
       "email": "pavel-andante@yandex.com"
     }
   ],
+  "support": {
+    "issues": "https://github.com/gyrobus/moonshine-seo/issues",
+    "source": "https://github.com/gyrobus/moonshine-seo"
+  },
   "repositories": [
     {
       "type": "vcs",
