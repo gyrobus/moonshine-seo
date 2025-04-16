@@ -14,6 +14,10 @@ final class SeoServiceProvider extends ServiceProvider
     {
         $this->loadMigrationsFrom(__DIR__ . '/../../database/migrations');
 
+        $this->publishes([
+            __DIR__ . '/../../config/moonshine-seo.php' => config_path('moonshine-seo.php'),
+        ]);
+
         $this->app->make('router')
             ->pushMiddlewareToGroup('web', SeoMiddleware::class);
     }
