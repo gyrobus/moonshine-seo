@@ -94,7 +94,7 @@ class SeoResource extends ModelResource
 
     protected function getUrlField()
     {
-        return config('moonshine-seo.url.select', false)
+        return config('moonshine-seo.routes.select', false)
             ? Select::make('Адрес страницы', 'path')
                 ->options($this->getSelectRouteOptions())
             : Text::make('Адрес страницы', 'path');
@@ -114,6 +114,8 @@ class SeoResource extends ModelResource
                 if (!in_array('GET', $route->methods()) || !isset($controller)) {
                     return false;
                 }
+
+                if (strpos($controller, '@') > 0) $controller = explode('@', $controller)[0];
 
                 if ((!empty($reject) && in_array($controller, $reject)) || (!is_null($rejectMask) && is_string($rejectMask) && preg_match($rejectMask, $controller))) {
                     return false;

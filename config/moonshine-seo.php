@@ -11,14 +11,14 @@ return [
         'controller' => [
             'accept' => [],
             'reject' => [],
-            'acceptMask' => null, // example: ''
-            'rejectMask' => null, // example: ''
+            'acceptMask' => null, // example: '/^App\\\\Http\\\\Controllers\\\\(Blog|Comment)Controller$/'
+            'rejectMask' => null, // example: '/^App\\\\Http\\\\Controllers\\\\(Blog|Comment)Controller$/'
         ]
     ],
 
     'image' => [
         'disk' => env('MOONSHINE_SEO_DISK', 'public'),
-        'dir' => env('MOONSHINE_SEO_DIR'),
+        'dir' => env('MOONSHINE_SEO_DIR', 'seo'),
     ],
 
     'generators' => [
