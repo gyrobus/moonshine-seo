@@ -1,13 +1,14 @@
 {
   "name": "gyrobus/moonshine-seo",
   "description": "Control SEO resource for moonshine v3",
-  "keywords": ["laravel", "SEO", "moonshine"],
+  "keywords": ["laravel", "SEO", "moonshine", "metadata", "twitter", "opengraph", "json-ld"],
   "type": "library",
   "license": "MIT",
   "authors": [
     {
       "name": "Pavel Andante",
-      "email": "pavel-andante@yandex.com"
+      "email": "pavel-andante@yandex.com",
+      "role": "Developer"
     }
   ],
   "support": {
@@ -22,17 +23,75 @@
   ],
   "require": {
     "php": ">=8.2",
+    "ext-zip": "*",
+    "illuminate/contracts": "^10.0|^11.0|^12.0",
+    "spatie/laravel-package-tools": "^1.16.4",
     "moonshine/moonshine": ">3.0",
-    "honeystone/laravel-seo": "^2.0",
     "gyrobus/moonshine-cropper": "dev-master"
+  },
+  "require-dev": {
+    "laradumps/laradumps-core": "^2.0",
+    "larastan/larastan": "^3.0",
+    "laravel/pint": "^1.21",
+    "nunomaduro/collision": "^8.0",
+    "orchestra/testbench": "^10.0",
+    "pestphp/pest": "^3.0",
+    "pestphp/pest-plugin-laravel": "^3.0",
+    "phpstan/extension-installer": "^1.4",
+    "phpstan/phpstan-deprecation-rules": "^2.0",
+    "phpstan/phpstan-phpunit": "^2.0",
+    "phpunit/phpunit": "^11.0",
+    "spatie/schema-org": "^3.23"
+  },
+  "suggest": {
+    "spatie/schema-org": "For generating JSON-LD schema using a fluent interface."
   },
   "autoload": {
     "psr-4": {
       "Gyrobus\\MoonshineSeo\\": "src/"
+    },
+    "files": [
+      "src/helpers.php"
+    ]
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Gyrobus\\MoonshineSeo\\Tests\\": "tests",
+      "Workbench\\App\\": "workbench/app/",
+      "Workbench\\Database\\Factories\\": "workbench/database/factories/",
+      "Workbench\\Database\\Seeders\\": "workbench/database/seeders/"
     }
   },
   "conflict": {
     "moonshine/moonshine": "<3.0"
+  },
+  "scripts": {
+    "analyse": "vendor/bin/phpstan analyse",
+    "test": "vendor/bin/pest",
+    "test-coverage": "vendor/bin/pest --coverage",
+    "post-autoload-dump": [
+      "@clear",
+      "@prepare"
+    ],
+    "clear": "@php vendor/bin/testbench package:purge-skeleton --ansi",
+    "prepare": "@php vendor/bin/testbench package:discover --ansi",
+    "build": "@php vendor/bin/testbench workbench:build --ansi",
+    "serve": [
+      "Composer\\Config::disableProcessTimeout",
+      "@build",
+      "@php vendor/bin/testbench serve"
+    ],
+    "lint": [
+      "@php vendor/bin/phpstan analyse"
+    ]
+  },
+  "config": {
+    "sort-packages": true,
+    "allow-plugins": {
+      "phpstan/extension-installer": true,
+      "dealerdirect/phpcodesniffer-composer-installer": true,
+      "pestphp/pest-plugin": true
+    }
   },
   "extra": {
     "laravel": {

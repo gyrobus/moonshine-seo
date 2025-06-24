@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Gyrobus\MoonshineSeo\Resources;
 
+use Gyrobus\MoonshineSeo\Concerns\HasConfig;
+use Gyrobus\MoonshineSeo\Concerns\HasData;
+use Gyrobus\MoonshineSeo\Concerns\HasDefaults;
 use Gyrobus\MoonshineCropper\Fields\Cropper;
 use Illuminate\Database\Eloquent\Model;
 use Gyrobus\MoonshineSeo\Models\Seo;
@@ -13,12 +16,15 @@ use MoonShine\Laravel\Resources\ModelResource;
 use MoonShine\UI\Components\Layout\Box;
 use MoonShine\UI\Fields\ID;
 use MoonShine\UI\Fields\Text;
+use MoonShine\UI\Fields\Textarea;
 
 /**
  * @extends ModelResource<Seo>
  */
 class SeoResource extends ModelResource
 {
+    use HasConfig, HasData, HasDefaults;
+
     protected string $model = Seo::class;
 
     protected string $title = 'Seo данные';
@@ -33,7 +39,7 @@ class SeoResource extends ModelResource
             Cropper::make('Картинка', 'image'),
             Text::make('Адрес страницы', 'path'),
             Text::make('Заголовок', 'title'),
-            Text::make('Описание', 'description'),
+            Textarea::make('Описание', 'description'),
         ];
     }
 
@@ -48,9 +54,9 @@ class SeoResource extends ModelResource
                 Cropper::make('Картинка', 'image')
                     ->disk('public')
                     ->dir('seo'),
-                Text::make('Адрес страницы', 'path'),
+                $this->getUrlField(),
                 Text::make('Заголовок', 'title'),
-                Text::make('Описание', 'description'),
+                Textarea::make('Описание', 'description'),
             ])
         ];
     }
@@ -65,7 +71,7 @@ class SeoResource extends ModelResource
             Cropper::make('Картинка', 'image'),
             Text::make('Адрес страницы', 'path'),
             Text::make('Заголовок', 'title'),
-            Text::make('Описание', 'description'),
+            Textarea::make('Описание', 'description'),
         ];
     }
 
@@ -78,5 +84,10 @@ class SeoResource extends ModelResource
     protected function rules(mixed $item): array
     {
         return [];
+    }
+
+    protected function getUrlField()
+    {
+        return Text::make('Адрес страницы', 'path');
     }
 }

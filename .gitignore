@@ -1,0 +1,12 @@
+/build/
+/vendor/
+/coverage/
+/node_modules/
+.idea
+.php_cs
+.php_cs.cache
+.phpunit.result.cache
+composer.lock
+.php-cs-fixer.cache
+.phpactor.json
+laradumps.yaml
