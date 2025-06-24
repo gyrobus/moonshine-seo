@@ -38,10 +38,6 @@ final class SeoServiceProvider extends PackageServiceProvider
     public function packageBooted(): void
     {
         app()->make('router')->pushMiddlewareToGroup('web', SeoMiddleware::class);
-        app()->publishes([
-            __DIR__ . '/../../config/moonshine-seo.php' => config_path('moonshine-seo.php'),
-            __DIR__ . '/../../database/migrations/moonshine_seo_create_seos_table.php' => database_path('migrations/moonshine_seo_create_seos_table.php'),
-        ]);
         Blade::directive('metadata', static function (string ...$only): string {
             if (function_exists('csp_nonce')) {
                 return '<?php echo seo()->jsonLdNonce(csp_nonce())->generate(...($only ?? [])); ?>';
