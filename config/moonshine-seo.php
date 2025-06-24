@@ -7,10 +7,12 @@ use Gyrobus\MoonshineSeo\Generators;
 return [
 
     'moonshine' => [
-        'resource' => [
-            'url' => [
-                'select' => true
-            ]
+        'url' => [
+            'select' => true
+        ],
+        'image' => [
+            'disk' => 'public',
+            'dir' => null
         ]
     ],
 
