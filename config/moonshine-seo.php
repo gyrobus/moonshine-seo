@@ -6,14 +6,19 @@ use Gyrobus\MoonshineSeo\Generators;
 
 return [
 
-    'moonshine' => [
-        'url' => [
-            'select' => true
-        ],
-        'image' => [
-            'disk' => 'public',
-            'dir' => null
+    'routes' => [
+        'select' => true,
+        'controller' => [
+            'accept' => [],
+            'reject' => [],
+            'acceptMask' => null, // example: ''
+            'rejectMask' => null, // example: ''
         ]
+    ],
+
+    'image' => [
+        'disk' => env('MOONSHINE_SEO_DISK', 'public'),
+        'dir' => env('MOONSHINE_SEO_DIR'),
     ],
 
     'generators' => [
