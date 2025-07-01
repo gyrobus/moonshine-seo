@@ -9,7 +9,11 @@ use Gyrobus\MoonshineSeo\Contracts\BuildsMetadata;
 use Gyrobus\MoonshineSeo\Contracts\RegistersGenerators;
 use Gyrobus\MoonshineSeo\MetadataDirector;
 use Gyrobus\MoonshineSeo\Registry;
+use Gyrobus\MoonshineSeo\Resources\SeoResource;
 use Illuminate\Support\Facades\Blade;
+use MoonShine\Contracts\Core\DependencyInjection\CoreContract;
+use MoonShine\Contracts\MenuManager\MenuManagerContract;
+use MoonShine\MenuManager\MenuItem;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
@@ -46,6 +50,19 @@ final class SeoServiceProvider extends PackageServiceProvider
             return '<?php echo seo()->generate(...($only ?? [])); ?>';
         });
         Blade::directive('openGraphPrefix', static fn (): string => '<?php echo seo()->openGraphPrefix(); ?>');
+
+        //$this->moonshineRegister();
+    }
+
+    public function moonshineRegister(CoreContract $core, MenuManagerContract $menu)
+    {
+        $core->resources([
+            SeoResource::class
+        ]);
+
+        $menu->add([
+            MenuItem::make('SEO', SeoResource::class)
+        ]);
     }
 
     private function registerMetadataDirectory(): void
