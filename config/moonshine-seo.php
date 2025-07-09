@@ -19,6 +19,7 @@ return [
     'image' => [
         'disk' => env('MOONSHINE_SEO_DISK', 'public'),
         'dir' => env('MOONSHINE_SEO_DIR', 'seo'),
+        'default' => env('MOONSHINE_SEO_DEFAULT_IMAGE'),
     ],
 
     'generators' => [

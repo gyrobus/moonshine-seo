@@ -20,14 +20,28 @@ class SeoMiddleware
                 ->description($seo->description ?? env('APP_NAME'));
 
             if ($seo && $seo->image) {
+
                 $storage = Storage::disk(config('moonshine-seo.image.disk', 'public'));
+
                 if ($storage->exists($seo->image)) {
                     seo()->images($storage->url($seo->image));
+                } else {
+                    $this->setDefaultImage();
                 }
+
+            } else {
+                $this->setDefaultImage();
             }
 
         }
 
         return $next($request);
+    }
+
+    protected function setDefaultImage()
+    {
+        if (config('moonshine-seo.image.default')) {
+            seo()->images(asset(config('moonshine-seo.image.default')));
+        }
     }
 }
