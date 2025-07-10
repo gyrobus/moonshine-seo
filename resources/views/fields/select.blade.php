@@ -17,7 +17,7 @@
     'asyncUrl' => '',
     'isNative' => false,
 ])
-<x-moonshine::form.select
+<x-moonshine-seo::select
         :attributes="$attributes"
         :values="$values"
         :nullable="$isNullable"
