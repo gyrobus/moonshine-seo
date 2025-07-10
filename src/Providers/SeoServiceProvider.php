@@ -56,11 +56,18 @@ final class SeoServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(self::MIGRATIONS_PATH);
         $this->loadTranslationsFrom(self::LANG_PATH, self::CONFIG_NAME);
 
+        $this->publishesMigrations([
+            self::MIGRATIONS_PATH => database_path('migrations'),
+        ]);
+
         $this->publishes([
             self::CONFIG_PATH => config_path(self::CONFIG_NAME . '.php'),
-            self::MIGRATIONS_PATH => database_path('migrations'),
             self::LANG_PATH => $this->app->langPath('vendor/' . self::CONFIG_NAME),
         ], self::CONFIG_NAME);
+
+        $this->mergeConfigFrom(
+            self::CONFIG_PATH, self::CONFIG_NAME
+        );
 
         $core->resources([
             SeoResource::class
@@ -71,7 +78,7 @@ final class SeoServiceProvider extends ServiceProvider
     private function registerMenu(MenuManagerContract $menu): void
     {
         $menu->add([
-            MenuItem::make(__('moonshine-seo::menu'), SeoResource::class)
+            MenuItem::make(__(self::CONFIG_NAME.'::'.'resource.menu'), SeoResource::class)
         ]);
     }
 

@@ -27,7 +27,7 @@ class SeoResource extends ModelResource
      */
     public function getTitle(): string
     {
-        return __('moonshine-seo::title');
+        return __('moonshine-seo::resource.title');
     }
 
     /**
@@ -38,9 +38,9 @@ class SeoResource extends ModelResource
         return [
             ID::make()->sortable(),
             $this->getCropperField(),
-            Text::make(__('moonshine-seo::fields.path'), 'path'),
-            Text::make(__('moonshine-seo::fields.title'), 'title'),
-            Textarea::make(__('moonshine-seo::fields.description'), 'description'),
+            Text::make(__('moonshine-seo::resource.fields.path'), 'path'),
+            Text::make(__('moonshine-seo::resource.fields.title'), 'title'),
+            Textarea::make(__('moonshine-seo::resource.fields.description'), 'description'),
         ];
     }
 
@@ -54,8 +54,8 @@ class SeoResource extends ModelResource
                 ID::make(),
                 $this->getCropperField(),
                 $this->getUrlField(),
-                Text::make(__('moonshine-seo::fields.title'), 'title'),
-                Textarea::make(__('moonshine-seo::fields.description'), 'description'),
+                Text::make(__('moonshine-seo::resource.fields.title'), 'title'),
+                Textarea::make(__('moonshine-seo::resource.fields.description'), 'description'),
             ])
         ];
     }
@@ -68,9 +68,9 @@ class SeoResource extends ModelResource
         return [
             ID::make(),
             $this->getCropperField(),
-            Text::make(__('moonshine-seo::fields.path'), 'path'),
-            Text::make(__('moonshine-seo::fields.title'), 'title'),
-            Textarea::make(__('moonshine-seo::fields.description'), 'description'),
+            Text::make(__('moonshine-seo::resource.fields.path'), 'path'),
+            Text::make(__('moonshine-seo::resource.fields.title'), 'title'),
+            Textarea::make(__('moonshine-seo::resource.fields.description'), 'description'),
         ];
     }
 
@@ -87,7 +87,7 @@ class SeoResource extends ModelResource
 
     protected function getCropperField(): Cropper
     {
-        $field = Cropper::make(__('moonshine-seo::fields.image'), 'image')
+        $field = Cropper::make(__('moonshine-seo::resource.fields.image'), 'image')
             ->disk(config('moonshine-seo.image.disk', 'public'))
             ->dir('seo');
 
@@ -99,9 +99,9 @@ class SeoResource extends ModelResource
     protected function getUrlField()
     {
         return config('moonshine-seo.routes.select', false)
-            ? Select::make(__('moonshine-seo::fields.path'), 'path')
+            ? Select::make(__('moonshine-seo::resource.fields.path'), 'path')
                 ->options($this->getSelectRouteOptions())
-            : Text::make(__('moonshine-seo::fields.path'), 'path');
+            : Text::make(__('moonshine-seo::resource.fields.path'), 'path');
     }
 
     protected function getSelectRouteOptions(): array
