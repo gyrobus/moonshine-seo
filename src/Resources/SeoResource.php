@@ -5,10 +5,8 @@ declare(strict_types=1);
 namespace Gyrobus\MoonshineSeo\Resources;
 
 use Gyrobus\MoonshineCropper\Fields\Cropper;
-use Illuminate\Database\Eloquent\Model;
 use Gyrobus\MoonshineSeo\Models\Seo;
 use Illuminate\Support\Facades\Route;
-use MoonShine\Contracts\UI\ComponentContract;
 use MoonShine\Contracts\UI\FieldContract;
 use MoonShine\Laravel\Resources\ModelResource;
 use MoonShine\UI\Components\Layout\Box;
@@ -24,7 +22,13 @@ class SeoResource extends ModelResource
 {
     protected string $model = Seo::class;
 
-    protected string $title = 'Seo данные';
+    /**
+     * @return string
+     */
+    public function getTitle(): string
+    {
+        return __('moonshine-seo::title');
+    }
 
     /**
      * @return list<FieldContract>
@@ -34,9 +38,9 @@ class SeoResource extends ModelResource
         return [
             ID::make()->sortable(),
             $this->getCropperField(),
-            Text::make('Адрес страницы', 'path'),
-            Text::make('Заголовок', 'title'),
-            Textarea::make('Описание', 'description'),
+            Text::make(__('moonshine-seo::fields.path'), 'path'),
+            Text::make(__('moonshine-seo::fields.title'), 'title'),
+            Textarea::make(__('moonshine-seo::fields.description'), 'description'),
         ];
     }
 
@@ -50,8 +54,8 @@ class SeoResource extends ModelResource
                 ID::make(),
                 $this->getCropperField(),
                 $this->getUrlField(),
-                Text::make('Заголовок', 'title'),
-                Textarea::make('Описание', 'description'),
+                Text::make(__('moonshine-seo::fields.title'), 'title'),
+                Textarea::make(__('moonshine-seo::fields.description'), 'description'),
             ])
         ];
     }
@@ -64,9 +68,9 @@ class SeoResource extends ModelResource
         return [
             ID::make(),
             $this->getCropperField(),
-            Text::make('Адрес страницы', 'path'),
-            Text::make('Заголовок', 'title'),
-            Textarea::make('Описание', 'description'),
+            Text::make(__('moonshine-seo::fields.path'), 'path'),
+            Text::make(__('moonshine-seo::fields.title'), 'title'),
+            Textarea::make(__('moonshine-seo::fields.description'), 'description'),
         ];
     }
 
@@ -83,7 +87,7 @@ class SeoResource extends ModelResource
 
     protected function getCropperField(): Cropper
     {
-        $field = Cropper::make('Картинка', 'image')
+        $field = Cropper::make(__('moonshine-seo::fields.image'), 'image')
             ->disk(config('moonshine-seo.image.disk', 'public'))
             ->dir('seo');
 
@@ -95,9 +99,9 @@ class SeoResource extends ModelResource
     protected function getUrlField()
     {
         return config('moonshine-seo.routes.select', false)
-            ? Select::make('Адрес страницы', 'path')
+            ? Select::make(__('moonshine-seo::fields.path'), 'path')
                 ->options($this->getSelectRouteOptions())
-            : Text::make('Адрес страницы', 'path');
+            : Text::make(__('moonshine-seo::fields.path'), 'path');
     }
 
     protected function getSelectRouteOptions(): array
