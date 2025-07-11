@@ -57,7 +57,7 @@ class SeoResource extends ModelResource
                 $this->getUrlField(),
                 Text::make(__('moonshine-seo::resource.fields.title'), 'title'),
                 Textarea::make(__('moonshine-seo::resource.fields.description'), 'description'),
-                Json::make(__('moonshine-seo::resource.meta.title'))->fields([
+                Json::make(__('moonshine-seo::resource.meta.title'), 'meta')->fields([
                     Text::make(__('moonshine-seo::resource.meta.name'), 'name'),
                     Textarea::make(__('moonshine-seo::resource.meta.content'), 'content'),
                 ])
