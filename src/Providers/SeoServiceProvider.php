@@ -58,7 +58,7 @@ final class SeoServiceProvider extends ServiceProvider
 
         $this->publishesMigrations([
             self::MIGRATIONS_PATH => database_path('migrations'),
-        ]);
+        ], self::CONFIG_NAME);
 
         $this->publishes([
             self::CONFIG_PATH => config_path(self::CONFIG_NAME . '.php'),

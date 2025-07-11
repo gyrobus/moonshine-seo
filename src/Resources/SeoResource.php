@@ -101,6 +101,7 @@ class SeoResource extends ModelResource
         return config('moonshine-seo.routes.select', false)
             ? Select::make(__('moonshine-seo::resource.fields.path'), 'path')
                 ->options($this->getSelectRouteOptions())
+                ->searchable()
             : Text::make(__('moonshine-seo::resource.fields.path'), 'path');
     }
 
