@@ -11,6 +11,7 @@ use MoonShine\Contracts\UI\FieldContract;
 use MoonShine\Laravel\Resources\ModelResource;
 use MoonShine\UI\Components\Layout\Box;
 use MoonShine\UI\Fields\ID;
+use MoonShine\UI\Fields\Json;
 use MoonShine\UI\Fields\Select;
 use MoonShine\UI\Fields\Text;
 use MoonShine\UI\Fields\Textarea;
@@ -56,6 +57,12 @@ class SeoResource extends ModelResource
                 $this->getUrlField(),
                 Text::make(__('moonshine-seo::resource.fields.title'), 'title'),
                 Textarea::make(__('moonshine-seo::resource.fields.description'), 'description'),
+                Json::make(__('moonshine-seo::resource.meta.title'))->fields([
+                    Text::make(__('moonshine-seo::resource.meta.name'), 'name'),
+                    Textarea::make(__('moonshine-seo::resource.meta.content'), 'content'),
+                ])
+                    ->creatable()
+                    ->removable()
             ])
         ];
     }

@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class Seo extends Model
 {
     protected $fillable = [
-        'path', 'title', 'description', 'image'
+        'path', 'title', 'description', 'image', 'meta'
+    ];
+
+    protected $casts = [
+        'meta' => 'json'
     ];
 }

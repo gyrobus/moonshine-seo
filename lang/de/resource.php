@@ -8,5 +8,10 @@ return [
         'title' => 'Titel',
         'description' => 'Beschreibung',
         'image' => 'Bild'
+    ],
+    'meta' => [
+        'title' => 'Metadaten',
+        'name' => 'Name',
+        'content' => 'Wert'
     ]
 ];

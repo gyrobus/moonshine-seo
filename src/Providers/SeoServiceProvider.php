@@ -23,67 +23,38 @@ final class SeoServiceProvider extends ServiceProvider
     private const LANG_PATH = __DIR__ . '/../../lang';
     private const CONFIG_NAME = 'moonshine-seo';
 
-
     public function register(): void
-    {
-        $this->registerConfiguration();
-        $this->registerServices();
-    }
-
-    public function boot(CoreContract $core, MenuManagerContract $menu): void
-    {
-        $this->registerResources($core);
-        $this->registerMenu($menu);
-        $this->registerBladeDirectives();
-        $this->registerMiddleware();
-    }
-
-    private function registerConfiguration(): void
-    {
-        $this->mergeConfigFrom(self::CONFIG_PATH, self::CONFIG_NAME);
-    }
-
-
-    private function registerServices(): void
     {
         app()->singleton(BuildsMetadata::class, MetadataDirector::class);
         app()->bind(RegistersGenerators::class, Registry::class);
     }
 
-
-    private function registerResources($core): void
+    public function boot(CoreContract $core, MenuManagerContract $menu): void
     {
         $this->loadMigrationsFrom(self::MIGRATIONS_PATH);
         $this->loadTranslationsFrom(self::LANG_PATH, self::CONFIG_NAME);
+        $this->mergeConfigFrom(self::CONFIG_PATH, self::CONFIG_NAME);
 
-        $this->publishesMigrations([
-            self::MIGRATIONS_PATH => database_path('migrations'),
-        ], self::CONFIG_NAME);
+        $this->publishes([
+            self::MIGRATIONS_PATH => database_path('migrations')
+        ], $this->getPublishTags('migrations'));
 
         $this->publishes([
             self::CONFIG_PATH => config_path(self::CONFIG_NAME . '.php'),
-            self::LANG_PATH => $this->app->langPath('vendor/' . self::CONFIG_NAME),
-        ], self::CONFIG_NAME);
+        ], $this->getPublishTags('config'));
 
-        $this->mergeConfigFrom(
-            self::CONFIG_PATH, self::CONFIG_NAME
-        );
+        $this->publishes([
+            self::LANG_PATH => lang_path('vendor/' . self::CONFIG_NAME),
+        ], $this->getPublishTags('lang'));
 
         $core->resources([
             SeoResource::class
         ]);
-    }
 
-
-    private function registerMenu(MenuManagerContract $menu): void
-    {
         $menu->add([
             MenuItem::make(__(self::CONFIG_NAME.'::'.'resource.menu'), SeoResource::class)
         ]);
-    }
 
-    private function registerBladeDirectives(): void
-    {
         Blade::directive('metadata', static function (string ...$only): string {
             if (function_exists('csp_nonce')) {
                 return '<?php echo seo()->jsonLdNonce(csp_nonce())->generate(...($only ?? [])); ?>';
@@ -92,12 +63,20 @@ final class SeoServiceProvider extends ServiceProvider
         });
 
         Blade::directive('openGraphPrefix', static fn (): string =>
-        '<?php echo seo()->openGraphPrefix(); ?>'
+            '<?php echo seo()->openGraphPrefix(); ?>'
         );
+
+        app()->make('router')->pushMiddlewareToGroup('web', SeoMiddleware::class);
+
     }
 
-    private function registerMiddleware(): void
+    private function getPublishTags(string $name): array
     {
-        app()->make('router')->pushMiddlewareToGroup('web', SeoMiddleware::class);
+        return [
+            self::CONFIG_NAME,
+            self::CONFIG_NAME.'-'.$name,
+            'laravel-'.$name,
+            $name
+        ];
     }
 }
