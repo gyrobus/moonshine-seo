@@ -58,8 +58,8 @@ class SeoResource extends ModelResource
                 Text::make(__('moonshine-seo::resource.fields.title'), 'title'),
                 Textarea::make(__('moonshine-seo::resource.fields.description'), 'description'),
                 Json::make(__('moonshine-seo::resource.meta.title'), 'meta')->fields([
-                    Text::make(__('moonshine-seo::resource.meta.name'), 'name'),
-                    Textarea::make(__('moonshine-seo::resource.meta.content'), 'content'),
+                    Text::make(__('moonshine-seo::resource.meta.name'), 'name')->required(),
+                    Textarea::make(__('moonshine-seo::resource.meta.content'), 'content')->required(),
                 ])
                     ->creatable()
                     ->removable()
