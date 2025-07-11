@@ -21,6 +21,7 @@ final class SeoServiceProvider extends ServiceProvider
     private const CONFIG_PATH = __DIR__ . '/../../config/moonshine-seo.php';
     private const MIGRATIONS_PATH = __DIR__ . '/../../database/migrations';
     private const LANG_PATH = __DIR__ . '/../../lang';
+    private const VIEWS_PATH = __DIR__ . '/../../resources/views';
     private const CONFIG_NAME = 'moonshine-seo';
 
     public function register(): void
@@ -32,6 +33,7 @@ final class SeoServiceProvider extends ServiceProvider
     public function boot(CoreContract $core, MenuManagerContract $menu): void
     {
         $this->loadMigrationsFrom(self::MIGRATIONS_PATH);
+        $this->loadViewsFrom(self::VIEWS_PATH, self::CONFIG_NAME);
         $this->loadTranslationsFrom(self::LANG_PATH, self::CONFIG_NAME);
         $this->mergeConfigFrom(self::CONFIG_PATH, self::CONFIG_NAME);
 
