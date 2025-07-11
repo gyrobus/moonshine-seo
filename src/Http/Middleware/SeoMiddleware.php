@@ -19,14 +19,24 @@ class SeoMiddleware
                 ->title($seo->title ?? env('APP_NAME'))
                 ->description($seo->description ?? env('APP_NAME'));
 
-            if ($seo && $seo->image) {
+            if ($seo) {
 
-                $storage = Storage::disk(config('moonshine-seo.image.disk', 'public'));
+                if ($seo->image) {
 
-                if ($storage->exists($seo->image)) {
-                    seo()->images($storage->url($seo->image));
-                } else {
-                    $this->setDefaultImage();
+                    $storage = Storage::disk(config('moonshine-seo.image.disk', 'public'));
+
+                    if ($storage->exists($seo->image)) {
+                        seo()->images($storage->url($seo->image));
+                    } else {
+                        $this->setDefaultImage();
+                    }
+
+                }
+
+                if ($seo->meta) {
+                    foreach ($seo->meta as $meta) {
+                        seo()->metaTag($meta->name, $meta->content);
+                    }
                 }
 
             } else {

@@ -89,7 +89,11 @@ class SeoResource extends ModelResource
      */
     protected function rules(mixed $item): array
     {
-        return [];
+        return [
+            'meta' => 'nullable|array',
+            'meta.*.name' => 'required|string',
+            'meta.*.content' => 'required|string',
+        ];
     }
 
     protected function getCropperField(): Cropper
